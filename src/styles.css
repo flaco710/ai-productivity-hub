@@ -68,8 +68,8 @@
   --warning-soft: oklch(0.96 0.04 85);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.91 0.01 210);
-  --input: oklch(0.91 0.01 210);
+  --border: oklch(0.83 0.035 218);
+  --input: oklch(0.83 0.035 218);
   --ring: oklch(0.52 0.11 190);
   --sidebar: oklch(0.22 0.035 230);
   --sidebar-foreground: oklch(0.86 0.015 210);
@@ -80,7 +80,7 @@
   --sidebar-border: oklch(0.3 0.03 228);
   --sidebar-ring: oklch(0.72 0.12 185);
   --gradient-hero: linear-gradient(135deg, oklch(0.26 0.05 225), oklch(0.42 0.1 195));
-  --shadow-card: 0 1px 2px oklch(0.2 0.03 230 / 5%), 0 8px 24px -12px oklch(0.2 0.03 230 / 12%);
+  --shadow-card: 0 1px 2px oklch(0.2 0.03 230 / 6%), 0 14px 34px -14px oklch(0.32 0.09 232 / 26%);
 }
 
 @utility bg-hero {
