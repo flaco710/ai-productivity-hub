@@ -23,7 +23,7 @@ export function ToolPage(props: {
   cta: string;
   markdown?: boolean;
 }) {
-  const initial = Object.fromEntries(props.fields.map((f) => [f.name, f.type === "select" ? f.options[0] : ""]));
+  const initial = Object.fromEntries(props.fields.map((f) => [f.name, f.type === "select" ? (f.options[0] ?? "") : ""]));
   const [values, setValues] = useState<Record<string, string>>(initial);
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -66,15 +66,15 @@ export function ToolPage(props: {
             <div key={f.name} className="space-y-1.5">
               <Label htmlFor={f.name}>{f.label}</Label>
               {f.type === "text" && (
-                <Input id={f.name} placeholder={f.placeholder} value={values[f.name]}
+                <Input id={f.name} placeholder={f.placeholder} value={values[f.name] ?? ""}
                   onChange={(e) => setValues({ ...values, [f.name]: e.target.value })} />
               )}
               {f.type === "textarea" && (
-                <Textarea id={f.name} rows={f.rows ?? 5} placeholder={f.placeholder} value={values[f.name]}
+                <Textarea id={f.name} rows={f.rows ?? 5} placeholder={f.placeholder} value={values[f.name] ?? ""}
                   onChange={(e) => setValues({ ...values, [f.name]: e.target.value })} />
               )}
               {f.type === "select" && (
-                <Select value={values[f.name]} onValueChange={(v) => setValues({ ...values, [f.name]: v })}>
+                <Select value={values[f.name] ?? ""} onValueChange={(v) => setValues({ ...values, [f.name]: v })}>
                   <SelectTrigger id={f.name}><SelectValue /></SelectTrigger>
                   <SelectContent>
                     {f.options.map((o) => <SelectItem key={o} value={o}>{o}</SelectItem>)}
