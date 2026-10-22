@@ -1,24 +1,54 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
+import { NAV } from "@/components/app-sidebar";
+import { Disclaimer } from "@/components/disclaimer";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "AI Workplace Productivity Assistant" },
+      { name: "description", content: "Automate emails, meeting notes, planning and research with AI." },
+      { property: "og:title", content: "AI Workplace Productivity Assistant" },
+      { property: "og:description", content: "Automate emails, meeting notes, planning and research with AI." },
+    ],
+  }),
+  component: Dashboard,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+const DESC: Record<string, string> = {
+  "/email": "Draft polished emails by tone and length.",
+  "/meetings": "Summaries, decisions and action items from notes.",
+  "/planner": "Prioritized plans and time-blocked schedules.",
+  "/research": "Structured briefs on any business topic.",
+  "/chat": "A conversational assistant for anything at work.",
+};
+
+function Dashboard() {
+  const tools = NAV.filter((n) => n.url !== "/");
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="mx-auto max-w-6xl space-y-8 p-4 md:p-8">
+      <section className="rounded-3xl bg-hero p-8 text-primary-foreground md:p-12">
+        <p className="text-sm font-medium opacity-80">Welcome back</p>
+        <h1 className="mt-2 max-w-2xl text-3xl font-semibold md:text-4xl">Your AI workplace assistant</h1>
+        <p className="mt-3 max-w-xl opacity-85">Automate the busywork — write, summarize, plan and research in seconds, then refine every result.</p>
+        <Link to="/email" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-card px-4 py-2 text-sm font-semibold text-foreground">
+          Start with an email <ArrowRight className="size-4" />
+        </Link>
+      </section>
+      <section>
+        <h2 className="mb-4 text-lg font-semibold">Tools</h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {tools.map((t) => (
+            <Link key={t.url} to={t.url} className="group rounded-2xl border bg-card p-5 shadow-card transition hover:-translate-y-0.5 hover:border-primary/40">
+              <div className="grid size-10 place-items-center rounded-xl bg-primary-soft text-primary"><t.icon className="size-5" /></div>
+              <h3 className="mt-4 font-semibold">{t.title}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">{DESC[t.url]}</p>
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary">Open <ArrowRight className="size-4 transition group-hover:translate-x-0.5" /></span>
+            </Link>
+          ))}
+        </div>
+      </section>
+      <Disclaimer />
     </div>
   );
 }
