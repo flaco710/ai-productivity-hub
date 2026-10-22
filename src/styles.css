@@ -46,8 +46,11 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.982 0.004 200);
+  --background: oklch(0.93 0.045 218);
   --foreground: oklch(0.2 0.03 230);
+  --sky-top: oklch(0.68 0.12 236);
+  --sky-mid: oklch(0.82 0.09 220);
+  --sky-low: oklch(0.93 0.05 205);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.2 0.03 230);
   --popover: oklch(1 0 0);
@@ -85,6 +88,72 @@
 }
 @utility shadow-card {
   box-shadow: var(--shadow-card);
+}
+
+@utility sky-field {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 50% 108%, oklch(0.97 0.02 200 / 75%), transparent 60%),
+    linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 52%, var(--sky-low) 100%);
+}
+
+@utility cloud {
+  position: absolute;
+  border-radius: 9999px;
+  background: oklch(1 0 0 / 0.92);
+  filter: blur(6px);
+  box-shadow: 0 18px 40px -18px oklch(0.45 0.09 235 / 35%);
+  will-change: transform;
+  animation: sky-drift linear infinite;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    background: oklch(1 0 0 / 0.92);
+    border-radius: 9999px;
+  }
+  &::before {
+    width: 55%;
+    height: 190%;
+    left: 14%;
+    top: -95%;
+  }
+  &::after {
+    width: 40%;
+    height: 140%;
+    right: 14%;
+    top: -58%;
+  }
+}
+
+@utility cloud-far {
+  background: oklch(1 0 0 / 0.55);
+  filter: blur(10px);
+  box-shadow: none;
+  &::before,
+  &::after {
+    background: oklch(1 0 0 / 0.55);
+  }
+}
+
+@keyframes sky-drift {
+  from {
+    transform: translate3d(-35vw, 0, 0);
+  }
+  to {
+    transform: translate3d(135vw, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloud {
+    animation: none;
+    transform: translate3d(10vw, 0, 0);
+  }
 }
 
 @layer base {
