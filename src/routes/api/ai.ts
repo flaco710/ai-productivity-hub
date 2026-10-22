@@ -9,7 +9,7 @@ export const Route = createFileRoute("/api/ai")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const apiKey = process.env.LOVABLE_API_KEY;
+        const apiKey = process.env["LOVABLE_API_KEY"];
         if (!apiKey) return Response.json({ error: "AI is not configured." }, { status: 500 });
         const body = (await request.json()) as {
           mode: ToolMode;
@@ -33,7 +33,8 @@ export const Route = createFileRoute("/api/ai")({
         let upstreamError: string | null = null;
         const result = streamText({
           model: provider.responses("openai/gpt-6-astra"),
-          messages: [{ role: "system", content: SYSTEM_PROMPTS[body.mode] }, ...history],
+          instructions: SYSTEM_PROMPTS[body.mode],
+          messages: history,
           abortSignal: request.signal,
           providerOptions: {
             openai: {
