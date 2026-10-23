@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Disclaimer } from "@/components/disclaimer";
 import { streamAI } from "@/lib/ai-client";
+import { recordTask } from "@/lib/time-saved";
 
 export type Field =
   | { name: string; label: string; type: "text"; placeholder?: string; required?: boolean }
@@ -39,6 +40,7 @@ export function ToolPage(props: {
     setOutput("");
     try {
       await streamAI({ mode: props.mode, fields: values }, setOutput, abort.current.signal);
+      recordTask(props.mode);
     } catch (e) {
       if ((e as Error).name !== "AbortError") toast.error((e as Error).message);
     } finally {
