@@ -29,7 +29,9 @@ function ChatPage() {
   const [loading, setLoading] = useState(false);
   const abort = useRef<AbortController | null>(null);
   const end = useRef<HTMLDivElement>(null);
-  useEffect(() => end.current?.scrollIntoView({ behavior: "smooth" }), [messages]);
+  useEffect(() => {
+    end.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   async function send(text: string) {
     if (!text.trim() || loading) return;
