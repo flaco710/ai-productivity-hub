@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - AI prompts live in src/lib/prompts.ts and all AI calls go through the /api/ai streaming route — keeps prompts and the API key server-side.
+- Workspace appearance preferences are session-only React context applied by the root provider; keep the sky backdrop unchanged while theming content surfaces.
