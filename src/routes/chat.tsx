@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Disclaimer } from "@/components/disclaimer";
 import { streamAI } from "@/lib/ai-client";
+import { recordTask } from "@/lib/time-saved";
 
 export const Route = createFileRoute("/chat")({
   head: () => ({
@@ -43,6 +44,7 @@ function ChatPage() {
     try {
       await streamAI({ mode: "chat", messages: next }, (t) =>
         setMessages([...next, { role: "assistant", content: t }]), abort.current.signal);
+      recordTask("chat");
     } catch (e) {
       if ((e as Error).name !== "AbortError") { toast.error((e as Error).message); setMessages(next); }
     } finally {
