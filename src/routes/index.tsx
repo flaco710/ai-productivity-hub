@@ -26,7 +26,7 @@ const DESC: Record<string, string> = {
 };
 
 function Dashboard() {
-  const tools = NAV.filter((n) => n.url !== "/");
+  const tools = NAV.filter((n) => n.url !== "/" && n.url !== "/settings");
   const [saved, setSaved] = useState<TimeSaved>({});
   useEffect(() => setSaved(readTimeSaved()), []);
   const minutes = totalMinutes(saved);

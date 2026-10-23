@@ -83,6 +83,30 @@
   --shadow-card: 0 1px 2px oklch(0.2 0.03 230 / 6%), 0 14px 34px -14px oklch(0.32 0.09 232 / 26%);
 }
 
+.dark {
+  --foreground: oklch(0.96 0.008 210);
+  --card: oklch(0.23 0.025 230);
+  --card-foreground: oklch(0.96 0.008 210);
+  --popover: oklch(0.23 0.025 230);
+  --popover-foreground: oklch(0.96 0.008 210);
+  --primary: oklch(0.76 0.1 185);
+  --primary-foreground: oklch(0.18 0.03 230);
+  --primary-soft: oklch(0.3 0.04 190);
+  --secondary: oklch(0.3 0.025 230);
+  --secondary-foreground: oklch(0.96 0.008 210);
+  --muted: oklch(0.3 0.025 230);
+  --muted-foreground: oklch(0.76 0.015 210);
+  --accent: oklch(0.34 0.04 190);
+  --accent-foreground: oklch(0.96 0.008 210);
+  --border: oklch(0.42 0.025 230);
+  --input: oklch(0.42 0.025 230);
+  --ring: oklch(0.76 0.1 185);
+}
+
+.clouds-paused .cloud {
+  animation-play-state: paused;
+}
+
 @utility bg-hero {
   background-image: var(--gradient-hero);
 }

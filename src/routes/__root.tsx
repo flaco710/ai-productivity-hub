@@ -16,6 +16,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SkyBackdrop } from "@/components/sky-backdrop";
 import { Toaster } from "@/components/ui/sonner";
+import { WorkspaceSettingsProvider } from "@/components/workspace-settings";
 
 function NotFoundComponent() {
   return (
@@ -120,6 +121,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <WorkspaceSettingsProvider>
       <SidebarProvider>
         <SkyBackdrop />
         <div className="flex min-h-screen w-full">
@@ -136,6 +138,7 @@ function RootComponent() {
         </div>
       </SidebarProvider>
       <Toaster richColors />
+      </WorkspaceSettingsProvider>
     </QueryClientProvider>
   );
 }
